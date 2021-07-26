@@ -11,16 +11,43 @@ class CalculatorTest {
 
     Calculator calculator = new Calculator();
 
+    int calculateNum1 = 4;
+    int calculateNum2 = 2;
+
     @DisplayName("연산 메소드 테스트")
     @Test
     void calculatorResultTest() {
         int num1 = 4;
         int num2 = 2;
 
-        assertThat(calculator.add(num1, num2)).isEqualTo(6);
-        assertThat(calculator.minus(num1, num2)).isEqualTo(2);
-        assertThat(calculator.multiply(num1, num2)).isEqualTo(8);
-        assertThat(calculator.divide(num1, num2)).isEqualTo(2);
+
+
+
+
+    }
+
+    @DisplayName("더하기 함수 테스트")
+    @Test
+    void addTest() {
+        assertThat(calculator.add(calculateNum1, calculateNum2)).isEqualTo(6);
+    }
+
+    @DisplayName("빼기 함수 테스트")
+    @Test
+    void minusTest() {
+        assertThat(calculator.minus(calculateNum1, calculateNum2)).isEqualTo(2);
+    }
+
+    @DisplayName("곱하기 함수 테스트")
+    @Test
+    void multipleTest() {
+        assertThat(calculator.multiply(calculateNum1, calculateNum2)).isEqualTo(8);
+    }
+
+    @DisplayName("나누기 함수 테스트")
+    @Test
+    void divideTest() {
+        assertThat(calculator.divide(calculateNum1, calculateNum2)).isEqualTo(2);
     }
 
     @DisplayName("빈문자열 체크 테스트")
@@ -53,12 +80,16 @@ class CalculatorTest {
         assertThat(calculator.executeCalculator(operator, num1, num2)).isEqualTo(expected);
     }
 
-    @DisplayName("Calculator 동작 테스트")
+    @DisplayName("Calculator 정상 동작 테스트")
     @Test
     void executeTest() {
         String mathExpression = "2 + 3 * 4 / 2";
         assertThat(calculator.execute(mathExpression)).isEqualTo("10");
+    }
 
+    @DisplayName("Calculator 비정상 기호 예외 테스트")
+    @Test
+    void executeExceptionTest() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> calculator.execute("2 ^ 3"))
                 .withMessageMatching("사칙연산 기호가 아닙니다.");
